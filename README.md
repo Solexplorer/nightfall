@@ -24,6 +24,38 @@ As well as this file, please be sure to check out:
 - [UI.md](./UI.md) to learn how to drive the demonstration UI and make transactions.
 - [SECURITY.md](./SECURITY.md) to learn about how we handle security issues.
 
+## Security Updates
+Critical security updates will be listed here. If you had previously installed Nightfall prior to one of these security updates, please pull the latest code,  and follow the extra re-installation steps outlined here.  
+
+---
+
+**date** (yyyy-mm-dd): 2019-06-04  
+**description**: Updated G2 library  
+**tag \#**: n/a  
+**PR \#**: [#23](https://github.com/EYBlockchain/nightfall/pull/23)  
+**issue \#**: [#14](https://github.com/EYBlockchain/nightfall/issues/14)  
+**re-installation**:  
+`docker-compose build zkp`  
+
+---  
+
+**date**: 2019-06-04  
+**description**: Burn payTo bug  
+**tag \#**:  v1.0.1  
+**PR \#**: [#26](https://github.com/EYBlockchain/nightfall/pull/26)  
+**issue \#**: [#19](https://github.com/EYBlockchain/nightfall/issues/19)  
+**re-installation**:  
+`cd zkp-utils`  
+`npm ci`  
+`cd ../zkp`  
+`npm ci`  
+`npm run setup -- -i gm17/nft-burn/`  
+`npm run setup -- -i gm17/ft-burn/`  
+`cd ..`  
+`docker-compose build zkp`  
+
+---  
+
 ## Getting started
 
 These instructions give the most direct path to a working Nightfall setup. The application is
@@ -40,8 +72,14 @@ The Nightfall demonstration requires the following software to run:
   - Launch Docker Desktop (on Mac, it is on the menu bar) and set memory to 8GB with 4GB of swap
     space (minimum - 12GB memory is better) or 16GB of memory with 512MB of swap. **The default
     values for Docker Desktop will NOT work. No, they really won't**.
-- Node (tested with 10.15.3) with npm and node-gyp
-  - If running macOS, install Xcode then run `xcode-select —install` to install these.
+- Python
+  - Be sure npm is setup to use v2.7 of python, not python3. To check the python version, run `python --version`
+  - You may need to run `npm config set python /usr/bin/python2.7` (or wherever your python 2 location is)
+- Node (tested with node 10.15.3) with npm and node-gyp.
+  - Will not work with node v12. To check the node version, run `node --version`
+  - If using mac/brew, then you may need to run `brew install node@10` and `brew link --overwrite node@10 --force`
+- Xcode Command line tools:
+  - If running macOS, install Xcode then run `xcode-select --install` to install command line tools.
 - docker-proxy
   - <https://github.com/aj-may/docker-proxy/>
 
@@ -106,7 +144,7 @@ If you have pulled new changes from the repo, then first run
 docker-compose build
 ```
 
-:night_with_stars: We're ready to go! Run the demo:
+:night_with_stars: We're ready to go! Be sure to be in the main directory and run the demo:
 
 ```sh
 ./zkp-demo
